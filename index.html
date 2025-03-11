@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>柯文辉 - 个人简历</title>
+    <!-- TailwindCSS 3.0+ -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome 图标库 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script>
+        // 配置 Tailwind
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'Noto Sans SC', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: {
+                            50: '#f0fdfa',
+                            100: '#ccfbf1',
+                            200: '#99f6e4',
+                            300: '#5eead4',
+                            400: '#2dd4bf',
+                            500: '#14b8a6',
+                            600: '#0d9488',
+                            700: '#0f766e',
+                            800: '#115e59',
+                            900: '#134e4a',
+                        },
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.5s ease-in-out forwards',
+                        'fade-up': 'fadeUp 0.6s ease-in-out forwards',
+                        'pulse-slow': 'pulseSlow 3s infinite',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0', transform: 'scale(0.9)' },
+                            '100%': { opacity: '1', transform: 'scale(1)' },
+                        },
+                        fadeUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        pulseSlow: {
+                            '0%, 100%': { opacity: '1' },
+                            '50%': { opacity: '0.7' },
+                        },
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        /* 自定义滚动条 */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        .dark ::-webkit-scrollbar-track {
+            background: #1e293b;
+        }
+        
+        .light ::-webkit-scrollbar-track {
+            background: #e2e8f0;
+        }
+        
+        /* 背景元素样式 */
+        .bg-pattern {
+            position: absolute;
+            z-index: 0;
+            opacity: 0.5;
+        }
+        
+        .bg-circle {
+            border-radius: 50%;
+            filter: blur(60px);
+        }
+        
+        .dark ::-webkit-scrollbar-thumb {
+            background: #0d9488;
+            border-radius: 4px;
+        }
+        
+        .light ::-webkit-scrollbar-thumb {
+            background: #0d9488;
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #0f766e;
+        }
+        
+        /* 自定义动画 */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .float {
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        /* 卡片悬停效果 */
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-8px);
+        }
+        
+        /* 渐变背景 */
+        .gradient-bg {
+            background-image: linear-gradient(135deg, #134e4a 0%, #0f766e 100%);
+        }
+        
+        /* 加载动画 */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease-in-out;
+        }
+        
+        .dark .loader {
+            background-color: #0f172a;
+        }
+        
+        .light .loader {
+            background-color: #f8fafc;
+        }
+    </style>
+</head>
+<body class="bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-200 antialiased overflow-x-hidden transition-colors duration-300">
+    <!-- 加载动画 -->
+    <div class="loader">
+        <div class="text-4xl font-bold text-primary-500 opacity-0 animate-fade-in">KWH</div>
+    </div>
+
+    <!-- 主题切换按钮 -->
+    <button id="theme-toggle" class="fixed top-5 right-5 z-50 p-2 rounded-full bg-white/80 dark:bg-slate-800/80 backdrop-blur-md border border-slate-200/50 dark:border-slate-700/50 shadow-lg transition-all duration-300 hover:scale-110">
+        <svg id="moon-icon" class="w-5 h-5 text-primary-600 hidden" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+        </svg>
+        <svg id="sun-icon" class="w-5 h-5 text-primary-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd"></path>
+        </svg>
+    </button>
+
+    <!-- 导航栏 -->
+    <header class="fixed top-0 left-0 w-full z-40 transition-all duration-300 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200/50 dark:border-slate-800/50 py-4 px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold text-slate-900 dark:text-white hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-300">柯文辉</a>
+            <div class="lg:hidden">
+                <button id="menu-toggle" class="text-slate-900 dark:text-slate-200 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-300">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+            <nav class="hidden lg:block">
+                <ul class="flex space-x-8">
+                    <li><a href="#about" class="text-slate-700 dark:text-slate-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-300 text-sm font-medium">关于我</a></li>
+                    <li><a href="#education" class="text-slate-700 dark:text-slate-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-300 text-sm font-medium">教育经历</a></li>
+                    <li><a href="#experience" class="text-slate-700 dark:text-slate-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-300 text-sm font-medium">社团经历</a></li>
+                    <li><a href="#work" class="text-slate-700 dark:text-slate-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-300 text-sm font-medium">实习经历</a></li>
+                    <li><a href="#contact" class="text-slate-700 dark:text-slate-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-300 text-sm font-medium">联系方式</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 移动端菜单 -->
+    <div id="mobile-menu" class="fixed inset-0 z-30 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md hidden pt-20 pb-6 px-6 overflow-y-auto lg:hidden">
+        <nav class="flex flex-col items-center justify-center h-full">
+            <ul class="flex flex-col items-center space-y-8 w-full">
+                <li class="w-full"><a href="#about" class="mobile-link block text-center py-3 text-xl font-medium text-slate-900 dark:text-slate-200 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-300">关于我</a></li>
+                <li class="w-full"><a href="#education" class="mobile-link block text-center py-3 text-xl font-medium text-slate-900 dark:text-slate-200 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-300">教育经历</a></li>
+                <li class="w-full"><a href="#experience" class="mobile-link block text-center py-3 text-xl font-medium text-slate-900 dark:text-slate-200 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-300">社团经历</a></li>
+                <li class="w-full"><a href="#work" class="mobile-link block text-center py-3 text-xl font-medium text-slate-900 dark:text-slate-200 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-300">实习经历</a></li>
+                <li class="w-full"><a href="#contact" class="mobile-link block text-center py-3 text-xl font-medium text-slate-900 dark:text-slate-200 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-300">联系方式</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <!-- 英雄区域 -->
+    <section class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 pb-16">
+        <div class="absolute inset-0 z-0">
+            <div class="absolute inset-0 bg-gradient-to-b from-white via-slate-100/90 to-white dark:from-slate-900 dark:via-slate-800/90 dark:to-slate-900 opacity-90"></div>
+            <div class="absolute inset-0 bg-[url('https://source.unsplash.com/random/1920x1080/?abstract,technology')] bg-cover bg-center bg-no-repeat opacity-20 dark:opacity-30"></div>
+            <!-- 装饰性背景元素 -->
+            <div class="bg-pattern bg-circle w-96 h-96 -top-20 -left-20 bg-primary-400/20 dark:bg-primary-600/10"></div>
+            <div class="bg-pattern bg-circle w-64 h-64 top-1/3 right-10 bg-primary-300/20 dark:bg-primary-500/10"></div>
+            <div class="bg-pattern bg-circle w-80 h-80 bottom-10 -left-20 bg-primary-200/20 dark:bg-primary-400/10"></div>
+        </div>
+        
+        <div class="container mx-auto px-6 relative z-10 text-center">
+            <div class="max-w-3xl mx-auto">
+                <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold text-slate-900 dark:text-white mb-6 opacity-0 transform translate-y-8 animate-fade-up" style="animation-delay: 0.3s">
+                    柯文辉
+                </h1>
+                <p class="text-xl md:text-2xl text-slate-700 dark:text-slate-300 mb-10 opacity-0 transform translate-y-8 animate-fade-up" style="animation-delay: 0.5s">
+                    国贸专业社长 | AIGC爱好者 | 旅行爱好者
+                </p>
+                <div class="flex justify-center space-x-4 opacity-0 transform translate-y-8 animate-fade-up" style="animation-delay: 0.7s">
+                    <a href="#about" class="px-6 py-3 bg-primary-600 hover:bg-primary-700 text-white font-medium rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-lg">
+                        了解更多
+                    </a>
+                    <a href="#contact" class="px-6 py-3 bg-transparent border border-primary-500 text-primary-400 hover:bg-primary-500/10 font-medium rounded-lg transition-all duration-300 transform hover:scale-105">
+                        联系我
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <a href="#about" class="text-slate-400 dark:text-slate-500 hover:text-primary-500 dark:hover:text-primary-400 transition-colors duration-300">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+                </svg>
+            </a>
+        </div>
+    </section>
+
+    <!-- 关于我 -->
+    <section id="about" class="py-20 bg-slate-50 dark:bg-slate-800/30 relative overflow-hidden">
+        <!-- 背景装饰 -->
+        <div class="absolute top-0 right-0 w-full h-full overflow-hidden opacity-10 dark:opacity-5 z-0">
+            <div class="absolute -right-10 -top-10 w-64 h-64 bg-primary-300 dark:bg-primary-600 rounded-full filter blur-3xl"></div>
+            <div class="absolute left-1/4 top-1/3 w-32 h-32 bg-primary-400 dark:bg-primary-500 rounded-full filter blur-2xl"></div>
+            <svg class="absolute bottom-0 left-0 w-full h-32 text-primary-100 dark:text-primary-900/20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+                <path fill="currentColor" fill-opacity="1" d="M0,224L48,213.3C96,203,192,181,288,181.3C384,181,480,203,576,224C672,245,768,267,864,261.3C960,256,1056,224,1152,208C1248,192,1344,192,1392,192L1440,192L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+            </svg>
+        </div>
+        <div class="container mx-auto px-6">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-3xl md:text-4xl font-bold text-center text-slate-900 dark:text-white mb-12">
+                    <span class="inline-block relative">
+                        个人优势
+                        <span class="absolute -bottom-2 left-0 w-full h-1 bg-primary-500 rounded-full"></span>
+                    </span>
+                </h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-white dark:bg-slate-800 rounded-xl shadow-md hover:shadow-xl p-6 transition-all duration-300 card-hover border border-slate-200/50 dark:border-slate-700/50">
+                        <div class="flex items-center mb-4">
+                            <div class="w-10 h-10 rounded-full bg-primary-500/20 flex items-center justify-center mr-4">
+                                <i class="fas fa-certificate text-primary-500"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold text-slate-900 dark:text-white">专业资格</h3>
+                        </div>
+                        <p class="text-slate-700 dark:text-slate-300 leading-relaxed">
+                            拥有计算机二级、期货从业资格证、电子商务师、全国外贸单证员资格，具有较强的学习能力和自我提升意识。熟悉使用扣子、飞书、星流、千牛等软件应用。
+                        </p>
+                    </div>
+                    
+                    <div class="bg-white dark:bg-slate-800 rounded-xl shadow-md hover:shadow-xl p-6 transition-all duration-300 card-hover border border-slate-200/50 dark:border-slate-700/50">
+                        <div class="flex items-center mb-4">
+                            <div class="w-10 h-10 rounded-full bg-primary-500/20 flex items-center justify-center mr-4">
+                                <i class="fas fa-briefcase text-primary-500"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold text-slate-900 dark:text-white">工作经验</h3>
+                        </div>
+                        <p class="text-slate-700 dark:text-slate-300 leading-relaxed">
+                            有客服、金融、物流等多领域，熟悉各业务流程，善于与不同客户群体沟通，能够快速掌握客户需求并提供优质解决方案。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 教育经历 -->
+    <section id="education" class="py-20 bg-white dark:bg-slate-900 relative overflow-hidden">
+        <!-- 背景装饰 -->
+        <div class="absolute inset-0 z-0 opacity-10 dark:opacity-5">
+            <div class="absolute top-0 left-0 w-full h-full">
+                <div class="absolute top-10 left-10 w-40 h-40 border-2 border-primary-200 dark:border-primary-800/30 rounded-lg transform rotate-12"></div>
+                <div class="absolute bottom-20 right-20 w-60 h-60 border-2 border-primary-200 dark:border-primary-800/30 rounded-lg transform -rotate-12"></div>
+                <div class="absolute top-1/3 right-1/4 w-20 h-20 bg-primary-100 dark:bg-primary-900/20 rounded-full"></div>
+                <div class="absolute bottom-1/3 left-1/4 w-16 h-16 bg-primary-100 dark:bg-primary-900/20 rounded-full"></div>
+            </div>
+        </div>
+        <div class="container mx-auto px-6">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-3xl md:text-4xl font-bold text-center text-slate-900 dark:text-white mb-12">
+                    <span class="inline-block relative">
+                        教育经历
+                        <span class="absolute -bottom-2 left-0 w-full h-1 bg-primary-500 rounded-full"></span>
+                    </span>
+                </h2>
+                
+                <div class="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-8 border border-slate-200/50 dark:border-slate-700/50 card-hover">
+                    <div class="flex flex-col md:flex-row justify-between mb-4">
+                        <h3 class="text-2xl font-bold text-slate-900 dark:text-white">泉州信息工程学院</h3>
+                        <span class="text-primary-600 dark:text-primary-400 font-medium">2022-2026</span>
+                    </div>
+                    <div class="mb-6">
+                        <span class="inline-block px-3 py-1 bg-primary-100 dark:bg-primary-900/30 text-primary-800 dark:text-primary-300 rounded-full text-sm font-medium">本科</span>
+                        <span class="inline-block px-3 py-1 bg-slate-100 dark:bg-slate-700 text-slate-800 dark:text-slate-300 rounded-full text-sm font-medium ml-2">国际经济与贸易</span>
+                    </div>
+                    <div class="mb-4">
+                        <p class="text-slate-700 dark:text-slate-300 mb-2"><span class="font-medium text-slate-900 dark:text-white">专业排名：</span>前20%</p>
+                        <p class="text-slate-700 dark:text-slate-300 mb-2"><span class="font-medium text-slate-900 dark:text-white">主修课程：</span>国际经济与贸易、电子商务</p>
+                    </div>
+                    <div class="mt-6">
+                        <h4 class="text-lg font-semibold text-slate-900 dark:text-white mb-3">主要成就</h4>
+                        <ul class="space-y-3">
+                            <li class="flex items-start">
+                                <span class="text-primary-500 mr-2">•</span>
+                                <span class="text-slate-700 dark:text-slate-300">担任国贸专业社团会长，负责组织和协调团团内外的各类活动，提升了团队协作与项目管理能力。</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-primary-500 mr-2">•</span>
+                                <span class="text-slate-700 dark:text-slate-300">作为班级委员，参与班级事务管理，增强领导与沟通技能。</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 社团经历 -->
+    <section id="experience" class="py-20 bg-slate-50 dark:bg-slate-800/30 relative overflow-hidden">
+        <!-- 背景装饰 -->
+        <div class="absolute inset-0 z-0 opacity-10 dark:opacity-5">
+            <svg class="absolute top-0 left-0 w-full h-32 text-white dark:text-slate-900" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" preserveAspectRatio="none">
+                <path fill="currentColor" fill-opacity="1" d="M0,96L60,112C120,128,240,160,360,160C480,160,600,128,720,128C840,128,960,160,1080,165.3C1200,171,1320,149,1380,138.7L1440,128L1440,0L1380,0C1320,0,1200,0,1080,0C960,0,840,0,720,0C600,0,480,0,360,0C240,0,120,0,60,0L0,0Z"></path>
+            </svg>
+            <div class="absolute top-1/4 right-10 w-32 h-32 bg-primary-200/40 dark:bg-primary-800/10 rounded-full filter blur-xl"></div>
+            <div class="absolute bottom-10 left-10 w-40 h-40 bg-primary-200/40 dark:bg-primary-800/10 rounded-full filter blur-xl"></div>
+            <div class="grid grid-cols-10 grid-rows-10 gap-4 h-full w-full opacity-5">
+                <div class="col-start-2 col-span-1 row-start-3 row-span-1 bg-primary-300 dark:bg-primary-700 rounded-full"></div>
+                <div class="col-start-5 col-span-1 row-start-7 row-span-1 bg-primary-300 dark:bg-primary-700 rounded-full"></div>
+                <div class="col-start-8 col-span-1 row-start-2 row-span-1 bg-primary-300 dark:bg-primary-700 rounded-full"></div>
+            </div>
+        </div>
+        <div class="container mx-auto px-6">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-3xl md:text-4xl font-bold text-center text-slate-900 dark:text-white mb-12">
+                    <span class="inline-block relative">
+                        社团经历
+                        <span class="absolute -bottom-2 left-0 w-full h-1 bg-primary-500 rounded-full"></span>
+                    </span>
+                </h2>
+                
+                <div class="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-8 border border-slate-200/50 dark:border-slate-700/50 card-hover">
+                    <div class="flex flex-col md:flex-row justify-between mb-4">
+                        <h3 class="text-2xl font-bold text-slate-900 dark:text-white">国际贸易协会</h3>
+                        <span class="text-primary-600 dark:text-primary-400 font-medium">2023.09-至今</span>
+                    </div>
+                    <div class="mb-6">
+                        <span class="inline-block px-3 py-1 bg-primary-100 dark:bg-primary-900/30 text-primary-800 dark:text-primary-300 rounded-full text-sm font-medium">会长</span>
+                    </div>
+                    <div class="mt-6">
+                        <ul class="space-y-3">
+                            <li class="flex items-start">
+                                <span class="text-primary-500 mr-2">•</span>
+                                <span class="text-slate-700 dark:text-slate-300">全面负责社团人员报备工作，建立管理社团成员信息，确保社团运作合规有序。</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-primary-500 mr-2">•</span>
+                                <span class="text-slate-700 dark:text-slate-300">组织多场校内外竞赛，如全国高校商业模拟挑战赛国际贸易竞赛、全国外贸单证大赛等，带领团队荣获国家级奖项六次、省级奖项四次，有效锻炼团队协作能力，提升社团地位。</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 实习经历 -->
+    <section id="work" class="py-20 bg-white dark:bg-slate-900 relative overflow-hidden">
+        <!-- 背景装饰 -->
+        <div class="absolute inset-0 z-0 opacity-10 dark:opacity-5">
+            <div class="absolute right-0 top-0 h-full w-1/3 bg-gradient-to-l from-primary-50/30 dark:from-primary-900/10 to-transparent"></div>
+            <div class="absolute left-0 bottom-0 h-full w-1/3 bg-gradient-to-r from-primary-50/30 dark:from-primary-900/10 to-transparent"></div>
+            <div class="absolute top-10 left-1/4 w-1 h-1/3 bg-gradient-to-b from-primary-300/50 dark:from-primary-600/20 to-transparent"></div>
+            <div class="absolute bottom-10 right-1/4 w-1 h-1/3 bg-gradient-to-t from-primary-300/50 dark:from-primary-600/20 to-transparent"></div>
+            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-primary-100/20 dark:bg-primary-900/10 rounded-full filter blur-3xl"></div>
+        </div>
+        <div class="container mx-auto px-6">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-3xl md:text-4xl font-bold text-center text-slate-900 dark:text-white mb-12">
+                    <span class="inline-block relative">
+                        实习经历
+                        <span class="absolute -bottom-2 left-0 w-full h-1 bg-primary-500 rounded-full"></span>
+                    </span>
+                </h2>
+                
+                <!-- 轮播组件 -->
+                <div class="relative overflow-hidden rounded-xl shadow-lg border border-slate-200/50 dark:border-slate-700/50">
+                    <div id="internship-carousel" class="carousel-container">
+                        <div class="carousel-slides">
+                            <!-- 厦门安踏电子商务有限公司 -->
+                            <div class="carousel-slide bg-white dark:bg-slate-800 p-8">
+                                <div class="flex flex-col md:flex-row justify-between mb-4">
+                                    <h3 class="text-2xl font-bold text-slate-900 dark:text-white">厦门安踏电子商务有限公司</h3>
+                                    <span class="text-primary-600 dark:text-primary-400 font-medium">2024.10-2024.12</span>
+                                </div>
+                                <div class="mb-6">
+                                    <span class="inline-block px-3 py-1 bg-primary-100 dark:bg-primary-900/30 text-primary-800 dark:text-primary-300 rounded-full text-sm font-medium">售后</span>
+                                </div>
+                                <div class="mt-6">
+                                    <ul class="space-y-3">
+                                        <li class="flex items-start">
+                                            <span class="text-primary-500 mr-2">•</span>
+                                            <span class="text-slate-700 dark:text-slate-300">积极拓展客户资源，通过电话沟通、实地拜访等方式，累计联系潜在客户 600 余位，为公司业务拓展打下实践基础。</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <span class="text-primary-500 mr-2">•</span>
+                                            <span class="text-slate-700 dark:text-slate-300">精通解读公司各类贷款产品政策，为客户提供专业、个性化的贷款方案咨询服务。</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <!-- 中国邮政福州分公司 -->
+                            <div class="carousel-slide bg-white dark:bg-slate-800 p-8">
+                                <div class="flex flex-col md:flex-row justify-between mb-4">
+                                    <h3 class="text-2xl font-bold text-slate-900 dark:text-white">中国邮政福州分公司</h3>
+                                    <span class="text-primary-600 dark:text-primary-400 font-medium">2021.08-2022.02</span>
+                                </div>
+                                <div class="mb-6">
+                                    <span class="inline-block px-3 py-1 bg-primary-100 dark:bg-primary-900/30 text-primary-800 dark:text-primary-300 rounded-full text-sm font-medium">物流</span>
+                                </div>
+                                <div class="mt-6">
+                                    <ul class="space-y-3">
+                                        <li class="flex items-start">
+                                            <span class="text-primary-500 mr-2">•</span>
+                                            <span class="text-slate-700 dark:text-slate-300">解读物流信息系统数据，精准跟踪包裹运输状态，日均处理包裹信息 300 余条，确保物流信息准确无误，有效避免包裹丢失及延误情况发生。</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <span class="text-primary-500 mr-2">•</span>
+                                            <span class="text-slate-700 dark:text-slate-300">协助组长整理客户反馈问题，通过数据分析归纳常见问题类型，提出针对性解决方案，有效提高客户问题解决效率。</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- 福州乐城商务有限公司 -->
+                            <div class="carousel-slide bg-white dark:bg-slate-800 p-8">
+                                <div class="flex flex-col md:flex-row justify-between mb-4">
+                                    <h3 class="text-2xl font-bold text-slate-900 dark:text-white">福州乐城商务有限公司</h3>
+                                    <span class="text-primary-600 dark:text-primary-400 font-medium">2024.07-2024.08</span>
+                                </div>
+                                <div class="mb-6">
+                                    <span class="inline-block px-3 py-1 bg-primary-100 dark:bg-primary-900/30 text-primary-800 dark:text-primary-300 rounded-full text-sm font-medium">贷款客户经理</span>
+                                </div>
+                                <div class="mt-6">
+                                    <ul class="space-y-3">
+                                        <li class="flex items-start">
+                                            <span class="text-primary-500 mr-2">•</span>
+                                            <span class="text-slate-700 dark:text-slate-300">积极拓展客户资源，通过电话沟通、实地拜访等方式，累计联系潜在客户 600 余位，为公司业务拓展打下坚实基础。</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <span class="text-primary-500 mr-2">•</span>
+                                            <span class="text-slate-700 dark:text-slate-300">精准解读公司各类贷款产品政策，为客户提供专业、个性化的贷款方案咨询服务。</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                        </div>
+                        
+                        <!-- 轮播控制按钮 -->
+                        <div class="absolute bottom-4 left-0 right-0 flex justify-center space-x-2">
+                            <button class="carousel-dot w-3 h-3 rounded-full bg-slate-300 dark:bg-slate-600 hover:bg-primary-500 dark:hover:bg-primary-500 transition-colors duration-300" data-index="0"></button>
+                            <button class="carousel-dot w-3 h-3 rounded-full bg-slate-300 dark:bg-slate-600 hover:bg-primary-500 dark:hover:bg-primary-500 transition-colors duration-300" data-index="1"></button>
+                            <button class="carousel-dot w-3 h-3 rounded-full bg-slate-300 dark:bg-slate-600 hover:bg-primary-500 dark:hover:bg-primary-500 transition-colors duration-300" data-index="2"></button>
+                        </div>
+                </div>
+                
+                <!-- 添加CSS样式 -->
+                <style>
+                    .carousel-container {
+                        position: relative;
+                        overflow: hidden;
+                    }
+                    
+                    .carousel-slides {
+                        display: flex;
+                        transition: transform 0.5s ease;
+                    }
+                    
+                    .carousel-slide {
+                        min-width: 100%;
+                        opacity: 0;
+                        transition: opacity 0.5s ease;
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        right: 0;
+                    }
+                    
+                    .carousel-slide.active {
+                        opacity: 1;
+                        position: relative;
+                    }
+                    
+                    .carousel-dot.active {
+                        background-color: #14b8a6;
+                    }
+                </style>
+            </div>
+        </div>
+    </section>
+
+    <!-- 联系方式 -->
+    <section id="contact" class="py-20 bg-slate-50 dark:bg-slate-800/30 relative overflow-hidden">
+        <!-- 背景装饰 -->
+        <div class="absolute inset-0 z-0 opacity-10 dark:opacity-5">
+            <svg class="absolute bottom-0 left-0 w-full h-32 text-white dark:text-slate-900" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" preserveAspectRatio="none">
+                <path fill="currentColor" fill-opacity="1" d="M0,160L48,170.7C96,181,192,203,288,202.7C384,203,480,181,576,165.3C672,149,768,139,864,154.7C960,171,1056,213,1152,218.7C1248,224,1344,192,1392,176L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+            </svg>
+            <div class="absolute top-0 right-0 w-64 h-64 bg-primary-200/30 dark:bg-primary-800/10 rounded-full filter blur-3xl"></div>
+            <div class="absolute -bottom-20 -left-20 w-80 h-80 bg-primary-200/30 dark:bg-primary-800/10 rounded-full filter blur-3xl"></div>
+            <div class="absolute top-1/3 left-1/3 w-4 h-4 bg-primary-400/50 dark:bg-primary-600/30 rounded-full"></div>
+            <div class="absolute top-2/3 right-1/4 w-3 h-3 bg-primary-400/50 dark:bg-primary-600/30 rounded-full"></div>
+            <div class="absolute top-1/4 right-1/3 w-2 h-2 bg-primary-400/50 dark:bg-primary-600/30 rounded-full"></div>
+        </div>
+        <div class="container mx-auto px-6">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-3xl md:text-4xl font-bold text-center text-slate-900 dark:text-white mb-12">
+                    <span class="inline-block relative">
+                        联系方式
+                        <span class="absolute -bottom-2 left-0 w-full h-1 bg-primary-500 rounded-full"></span>
+                    </span>
+                </h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- 个人信息 -->
+                    <div class="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-8 border border-slate-200/50 dark:border-slate-700/50 card-hover">
+                        <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-6 pb-2 border-b border-slate-200 dark:border-slate-700">个人信息</h3>
+                        <ul class="space-y-4">
+                            <li class="flex items-center">
+                                <div class="w-10 h-10 rounded-full bg-primary-500/20 flex items-center justify-center mr-4">
+                                    <i class="fas fa-phone text-primary-500"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-slate-500 dark:text-slate-400">电话</p>
+                                    <p class="text-slate-900 dark:text-white font-medium">13696816959</p>
+                                </div>
+                            </li>
+                            <li class="flex items-center">
+                                <div class="w-10 h-10 rounded-full bg-primary-500/20 flex items-center justify-center mr-4">
+                                    <i class="fab fa-weixin text-primary-500"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-slate-500 dark:text-slate-400">微信号</p>
+                                    <p class="text-slate-900 dark:text-white font-medium">kk13706959709</p>
+                                </div>
+                            </li>
+                            <li class="flex items-center">
+                                <div class="w-10 h-10 rounded-full bg-primary-500/20 flex items-center justify-center mr-4">
+                                    <i class="fas fa-envelope text-primary-500"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-slate-500 dark:text-slate-400">邮箱</p>
+                                    <p class="text-slate-900 dark:text-white font-medium">i2340835@gmail.com</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <!-- 资格证书 -->
+                    <div class="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-8 border border-slate-200/50 dark:border-slate-700/50 card-hover">
+                        <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-6 pb-2 border-b border-slate-200 dark:border-slate-700">资格证书</h3>
+                        <ul class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <li class="flex items-center">
+                                <div class="w-8 h-8 rounded-full bg-primary-500/20 flex items-center justify-center mr-3">
+                                    <i class="fas fa-certificate text-primary-500 text-sm"></i>
+                                </div>
+                                <span class="text-slate-700 dark:text-slate-300">电子商务师</span>
+                            </li>
+                            <li class="flex items-center">
+                                <div class="w-8 h-8 rounded-full bg-primary-500/20 flex items-center justify-center mr-3">
+                                    <i class="fas fa-laptop-code text-primary-500 text-sm"></i>
+                                </div>
+                                <span class="text-slate-700 dark:text-slate-300">计算机二级</span>
+                            </li>
+                            <li class="flex items-center">
+                                <div class="w-8 h-8 rounded-full bg-primary-500/20 flex items-center justify-center mr-3">
+                                    <i class="fas fa-file-contract text-primary-500 text-sm"></i>
+                                </div>
+                                <span class="text-slate-700 dark:text-slate-300">全国外贸单证员资格</span>
+                            </li>
+                            <li class="flex items-center">
+                                <div class="w-8 h-8 rounded-full bg-primary-500/20 flex items-center justify-center mr-3">
+                                    <i class="fas fa-chart-line text-primary-500 text-sm"></i>
+                                </div>
+                                <span class="text-slate-700 dark:text-slate-300">期货从业资格证</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="bg-slate-900 dark:bg-slate-800 text-white py-12">
+        <div class="container mx-auto px-6">
+            <div class="max-w-5xl mx-auto">
+                <div class="flex flex-col items-center">
+                    <!-- 作者信息 -->
+                    <div class="text-center mb-8">
+                        <h3 class="text-2xl font-bold mb-2">Kicbear</h3>
+                        <p class="text-slate-400">国贸专业社长 | AIGC爱好者 | 旅行爱好者</p>
+                    </div>
+                    
+                    <!-- 社交媒体链接 -->
+                    <div class="flex flex-wrap justify-center gap-6 mb-8">
+                        <a href="#" class="group">
+                            <div class="w-12 h-12 rounded-full bg-slate-800 dark:bg-slate-700 flex items-center justify-center group-hover:bg-primary-600 transition-all duration-300">
+                                <i class="fab fa-github text-slate-300 group-hover:text-white transition-colors duration-300"></i>
+                            </div>
+                        </a>
+                        <a href="#" class="group">
+                            <div class="w-12 h-12 rounded-full bg-slate-800 dark:bg-slate-700 flex items-center justify-center group-hover:bg-primary-600 transition-all duration-300">
+                                <i class="fab fa-twitter text-slate-300 group-hover:text-white transition-colors duration-300"></i>
+                            </div>
+                        </a>
+                        <a href="#" class="group">
+                            <div class="w-12 h-12 rounded-full bg-slate-800 dark:bg-slate-700 flex items-center justify-center group-hover:bg-primary-600 transition-all duration-300">
+                                <i class="fab fa-weixin text-slate-300 group-hover:text-white transition-colors duration-300"></i>
+                            </div>
+                        </a>
+                        <a href="#" class="group">
+                            <div class="w-12 h-12 rounded-full bg-slate-800 dark:bg-slate-700 flex items-center justify-center group-hover:bg-primary-600 transition-all duration-300">
+                                <i class="fas fa-heart text-slate-300 group-hover:text-white transition-colors duration-300"></i>
+                            </div>
+                        </a>
+                    </div>
+                    
+                    <!-- 版权信息 -->
+                    <div class="text-center text-slate-400 text-sm">
+                        <p>© 2024 Kicbear. 保留所有权利。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // 页面加载完成后执行
+        document.addEventListener('DOMContentLoaded', function() {
+            // 移除加载动画 - 确保立即执行
+            const loader = document.querySelector('.loader');
+            if (loader) {
+                loader.style.opacity = '0';
+                setTimeout(function() {
+                    loader.style.display = 'none';
+                }, 500);
+            }
+            
+            // 实习经历轮播功能
+            const carouselSlides = document.querySelectorAll('.carousel-slide');
+            const carouselDots = document.querySelectorAll('.carousel-dot');
+            let currentSlide = 0;
+            let slideInterval;
+            
+            // 初始化轮播
+            function initCarousel() {
+                if (carouselSlides.length === 0) return;
+                
+                // 显示第一张幻灯片
+                carouselSlides[0].classList.add('active');
+                if (carouselDots.length > 0) {
+                    carouselDots[0].classList.add('active');
+                }
+                
+                // 设置所有幻灯片的高度一致
+                let maxHeight = 0;
+                carouselSlides.forEach(slide => {
+                    const slideHeight = slide.scrollHeight;
+                    if (slideHeight > maxHeight) {
+                        maxHeight = slideHeight;
+                    }
+                });
+                
+                document.querySelector('.carousel-container').style.height = `${maxHeight}px`;
+                
+                // 只有多个幻灯片时才启动自动轮播
+                if (carouselSlides.length > 1) {
+                    startSlideshow();
+                }
+            }
+            
+            // 切换到指定幻灯片
+            function goToSlide(index) {
+                // 如果只有一个幻灯片，不执行切换
+                if (carouselSlides.length <= 1) return;
+                
+                // 移除当前活动状态
+                carouselSlides[currentSlide].classList.remove('active');
+                carouselDots[currentSlide].classList.remove('active');
+                
+                // 更新当前幻灯片索引
+                currentSlide = index;
+                
+                // 如果索引超出范围，重置为第一张
+                if (currentSlide >= carouselSlides.length) {
+                    currentSlide = 0;
+                }
+                
+                // 添加新的活动状态
+                carouselSlides[currentSlide].classList.add('active');
+                carouselDots[currentSlide].classList.add('active');
+            }
+            
+            // 下一张幻灯片
+            function nextSlide() {
+                if (carouselSlides.length <= 1) return;
+                goToSlide((currentSlide + 1) % carouselSlides.length);
+            }
+            
+            // 启动自动轮播
+            function startSlideshow() {
+                // 每5秒切换一次幻灯片
+                slideInterval = setInterval(nextSlide, 5000);
+            }
+            
+            // 停止自动轮播
+            function stopSlideshow() {
+                clearInterval(slideInterval);
+            }
+            
+            // 点击指示点切换幻灯片
+            carouselDots.forEach((dot, index) => {
+                dot.addEventListener('click', () => {
+                    if (carouselSlides.length <= 1) return;
+                    stopSlideshow();
+                    goToSlide(index);
+                    startSlideshow();
+                });
+            });
+            
+            // 初始化轮播
+            initCarousel();
+            
+            // 主题切换功能
+            const themeToggle = document.getElementById('theme-toggle');
+            const moonIcon = document.getElementById('moon-icon');
+            const sunIcon = document.getElementById('sun-icon');
+            const html = document.documentElement;
+            
+            // 检查系统主题偏好
+            const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            
+            // 检查本地存储中的主题设置
+            const savedTheme = localStorage.getItem('theme');
+            
+            // 根据保存的主题或系统偏好设置初始主题
+            if (savedTheme === 'light' || (!savedTheme && !prefersDarkMode)) {
+                html.classList.remove('dark');
+                moonIcon.classList.remove('hidden');
+                sunIcon.classList.add('hidden');
+            } else {
+                html.classList.add('dark');
+                sunIcon.classList.remove('hidden');
+                moonIcon.classList.add('hidden');
+            }
+            
+            // 主题切换事件
+            themeToggle.addEventListener('click', function() {
+                html.classList.toggle('dark');
+                moonIcon.classList.toggle('hidden');
+                sunIcon.classList.toggle('hidden');
+                
+                // 保存主题设置到本地存储
+                if (html.classList.contains('dark')) {
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+            
+            // 移动端菜单
+            const menuToggle = document.getElementById('menu-toggle');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileLinks = document.querySelectorAll('.mobile-link');
+            
+            menuToggle.addEventListener('click', function() {
+                mobileMenu.classList.toggle('hidden');
+                document.body.classList.toggle('overflow-hidden');
+            });
+            
+            mobileLinks.forEach(function(link) {
+                link.addEventListener('click', function() {
+                    mobileMenu.classList.add('hidden');
+                    document.body.classList.remove('overflow-hidden');
+                });
+            });
+            
+            // 滚动动画
+            const animateOnScroll = function() {
+                const elements = document.querySelectorAll('.card-hover');
+                
+                elements.forEach(element => {
+                    const elementTop = element.getBoundingClientRect().top;
+                    const elementVisible = 150;
+                    
+                    if (elementTop < window.innerHeight - elementVisible) {
+                        element.classList.add('animate-fade-in');
+                    }
+                });
+            };
+            
+            // 初始执行一次
+            animateOnScroll();
+            
+            // 滚动时执行
+            window.addEventListener('scroll', animateOnScroll);
+        });
+    
+    </script>
+</body>
+</html>
