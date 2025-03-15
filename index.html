@@ -2,7 +2,7 @@
 <html lang="zh-CN" class="dark">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>柯文辉 - 个人简历</title>
     <!-- TailwindCSS 3.0+ -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -178,21 +178,19 @@
         <div class="text-4xl font-bold text-primary-500 opacity-0 animate-fade-in">KWH</div>
     </div>
 
-    <!-- 主题切换按钮 -->
-    <button id="theme-toggle" class="fixed top-5 right-5 z-50 p-2 rounded-full bg-white/80 dark:bg-slate-800/80 backdrop-blur-md border border-slate-200/50 dark:border-slate-700/50 shadow-lg transition-all duration-300 hover:scale-110">
-        <svg id="moon-icon" class="w-5 h-5 text-primary-600 hidden" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-            <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
-        </svg>
-        <svg id="sun-icon" class="w-5 h-5 text-primary-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-            <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd"></path>
-        </svg>
-    </button>
-
     <!-- 导航栏 -->
     <header class="fixed top-0 left-0 w-full z-40 transition-all duration-300 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200/50 dark:border-slate-800/50 py-4 px-6 lg:px-8">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
             <a href="#" class="text-2xl font-bold text-slate-900 dark:text-white hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-300"></a>
-            <div class="lg:hidden">
+            <div class="lg:hidden flex items-center space-x-4">
+                <button id="mobile-theme-toggle" class="p-2 rounded-full bg-white/80 dark:bg-slate-800/80 backdrop-blur-md border border-slate-200/50 dark:border-slate-700/50 shadow-lg transition-all duration-300 hover:scale-110">
+                    <svg id="mobile-moon-icon" class="w-5 h-5 text-primary-600 hidden" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+                    </svg>
+                    <svg id="mobile-sun-icon" class="w-5 h-5 text-primary-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd"></path>
+                    </svg>
+                </button>
                 <button id="menu-toggle" class="text-slate-900 dark:text-slate-200 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-300">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
@@ -200,20 +198,30 @@
                 </button>
             </div>
             <nav class="hidden lg:block">
-                <ul class="flex space-x-8">
+                <ul class="flex space-x-8 items-center">
                     <li><a href="#about" class="text-slate-700 dark:text-slate-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-300 text-sm font-medium">关于我</a></li>
                     <li><a href="#education" class="text-slate-700 dark:text-slate-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-300 text-sm font-medium">教育经历</a></li>
                     <li><a href="#experience" class="text-slate-700 dark:text-slate-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-300 text-sm font-medium">社团经历</a></li>
                     <li><a href="#work" class="text-slate-700 dark:text-slate-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-300 text-sm font-medium">实习经历</a></li>
                     <li><a href="#projects" class="text-slate-700 dark:text-slate-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-300 text-sm font-medium">项目展示</a></li>
                     <li><a href="#contact" class="text-slate-700 dark:text-slate-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-300 text-sm font-medium">联系方式</a></li>
+                    <li>
+                        <button id="theme-toggle" class="p-2 rounded-full bg-white/80 dark:bg-slate-800/80 backdrop-blur-md border border-slate-200/50 dark:border-slate-700/50 shadow-lg transition-all duration-300 hover:scale-110">
+                            <svg id="moon-icon" class="w-5 h-5 text-primary-600 hidden" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+                            </svg>
+                            <svg id="sun-icon" class="w-5 h-5 text-primary-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd"></path>
+                            </svg>
+                        </button>
+                    </li>
                 </ul>
             </nav>
         </div>
     </header>
 
     <!-- 移动端菜单 -->
-    <div id="mobile-menu" class="fixed inset-0 z-30 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md hidden pt-20 pb-6 px-6 overflow-y-auto lg:hidden">
+    <div id="mobile-menu" class="fixed inset-0 z-30 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md hidden pt-20 pb-6 px-4 sm:px-6 overflow-y-auto lg:hidden">
         <nav class="flex flex-col items-center justify-center h-full">
             <ul class="flex flex-col items-center space-y-8 w-full">
                 <li class="w-full"><a href="#about" class="mobile-link block text-center py-3 text-xl font-medium text-slate-900 dark:text-slate-200 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-300">关于我</a></li>
@@ -221,6 +229,7 @@
                 <li class="w-full"><a href="#experience" class="mobile-link block text-center py-3 text-xl font-medium text-slate-900 dark:text-slate-200 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-300">社团经历</a></li>
                 <li class="w-full"><a href="#work" class="mobile-link block text-center py-3 text-xl font-medium text-slate-900 dark:text-slate-200 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-300">实习经历</a></li>
                 <li class="w-full"><a href="#contact" class="mobile-link block text-center py-3 text-xl font-medium text-slate-900 dark:text-slate-200 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-300">联系方式</a></li>
+
             </ul>
         </nav>
     </div>
@@ -230,7 +239,7 @@
         <div class="absolute inset-0 z-0">
             <!-- 视频背景 -->
             <div class="absolute inset-0 bg-gradient-to-b from-white via-slate-100/90 to-white dark:from-slate-900 dark:via-slate-800/90 dark:to-slate-900 opacity-90"></div>
-            <video class="absolute inset-0 w-full h-full object-cover opacity-50 dark:opacity-60" autoplay loop muted playsinline>
+            <video class="absolute inset-0 w-full h-full object-cover opacity-50 dark:opacity-60" autoplay loop muted playsinline preload="auto" poster="未命名的设计.png">
                 <source src="compressed_video.mp4" type="video/mp4">
             </video>
             <!-- 装饰性背景元素 -->
@@ -241,17 +250,17 @@
         
         <div class="container mx-auto px-6 relative z-10 text-center">
             <div class="max-w-3xl mx-auto">
-                <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold text-slate-900 dark:text-white mb-6 opacity-0 transform translate-y-8 animate-fade-up" style="animation-delay: 0.3s">
+                <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-slate-900 dark:text-white mb-4 sm:mb-6 opacity-0 transform translate-y-8 animate-fade-up" style="animation-delay: 0.3s">
                     柯文辉
                 </h1>
-                <p class="text-xl md:text-2xl text-slate-700 dark:text-slate-300 mb-10 opacity-0 transform translate-y-8 animate-fade-up" style="animation-delay: 0.5s">
+                <p class="text-lg sm:text-xl md:text-2xl text-slate-700 dark:text-slate-300 mb-6 sm:mb-10 opacity-0 transform translate-y-8 animate-fade-up" style="animation-delay: 0.5s">
                     国贸专业社长 | AIGC爱好者 | 旅行爱好者
                 </p>
-                <div class="flex justify-center space-x-4 opacity-0 transform translate-y-8 animate-fade-up" style="animation-delay: 0.7s">
-                    <a href="#about" class="px-6 py-3 bg-primary-600 hover:bg-primary-700 text-white font-medium rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-lg">
+                <div class="flex flex-col sm:flex-row justify-center sm:space-x-4 space-y-3 sm:space-y-0 opacity-0 transform translate-y-8 animate-fade-up" style="animation-delay: 0.7s">
+                    <a href="#about" class="w-full sm:w-auto text-center px-6 py-3 bg-primary-600 hover:bg-primary-700 text-white font-medium rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-lg">
                         了解更多
                     </a>
-                    <a href="#contact" class="px-6 py-3 bg-primary-600 hover:bg-primary-700 text-white font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-105">
+                    <a href="#contact" class="w-full sm:w-auto text-center px-6 py-3 bg-primary-600 hover:bg-primary-700 text-white font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-105">
                         联系我
                     </a>
                 </div>
@@ -579,7 +588,7 @@
                     </span>
                 </h2>
                 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-6 lg:gap-8">
                     <!-- 项目1 -->
                     <div class="bg-white dark:bg-slate-800 rounded-xl shadow-md hover:shadow-xl p-6 transition-all duration-300 card-hover border border-slate-200/50 dark:border-slate-700/50">
                         <div class="flex items-center mb-4">
@@ -598,7 +607,7 @@
                         <div class="mt-4">
                             <h4 class="text-md font-semibold text-slate-800 dark:text-slate-200 mb-2">项目成果：</h4>
                             <div class="mt-3">
-                                <img src="image/fe165e974f60c6c8eb95acd20c20027.png" alt="荣誉证书" class="w-full rounded-lg shadow-md hover:shadow-lg transition-all duration-300">
+                                <img src="image/fe165e974f60c6c8eb95acd20c20027.png" alt="荣誉证书" class="w-full rounded-lg shadow-md hover:shadow-lg transition-all duration-300" loading="lazy">
                             </div>
                         </div>
                     </div>
@@ -621,7 +630,7 @@
                         <div class="mt-4">
                             <h4 class="text-md font-semibold text-slate-800 dark:text-slate-200 mb-2">项目成果：</h4>
                             <div class="mt-3">
-                                <img src="image/d8d27f220f46b5421c77f73652b0598.png" alt="荣誉证书" class="w-full rounded-lg shadow-md hover:shadow-lg transition-all duration-300">
+                                <img src="image/d8d27f220f46b5421c77f73652b0598.png" alt="荣誉证书" class="w-full rounded-lg shadow-md hover:shadow-lg transition-all duration-300" loading="lazy">
                             </div>
                         </div>
                     </div>
@@ -639,7 +648,7 @@
     </section>
 
     <!-- 联系方式 -->
-    <section id="contact" class="py-20 bg-slate-50 dark:bg-slate-800/30 relative overflow-hidden">
+    <section id="contact" class="py-12 sm:py-16 md:py-20 bg-slate-50 dark:bg-slate-800/30 relative overflow-hidden">
         <!-- 背景装饰 -->
         <div class="absolute inset-0 z-0 opacity-10 dark:opacity-5">
             <svg class="absolute bottom-0 left-0 w-full h-32 text-white dark:text-slate-900" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" preserveAspectRatio="none">
@@ -660,7 +669,7 @@
                     </span>
                 </h2>
                 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
                     <!-- 个人信息 -->
                     <div class="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-8 border border-slate-200/50 dark:border-slate-700/50 card-hover">
                         <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-6 pb-2 border-b border-slate-200 dark:border-slate-700">个人信息 <span class="text-sm font-normal text-slate-600 dark:text-slate-300 ml-2 px-2 py-1 bg-slate-100 dark:bg-slate-700 rounded">更多请联系</span></h3>
@@ -698,7 +707,7 @@
                     <!-- 资格证书 -->
                     <div class="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-8 border border-slate-200/50 dark:border-slate-700/50 card-hover">
                         <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-6 pb-2 border-b border-slate-200 dark:border-slate-700">资格证书</h3>
-                        <ul class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <ul class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                             <li class="flex items-center">
                                 <div class="w-8 h-8 rounded-full bg-primary-500/20 flex items-center justify-center mr-3">
                                     <i class="fas fa-certificate text-primary-500 text-sm"></i>
@@ -874,8 +883,11 @@
             
             // 主题切换功能
             const themeToggle = document.getElementById('theme-toggle');
+            const mobileThemeToggle = document.getElementById('mobile-theme-toggle');
             const moonIcon = document.getElementById('moon-icon');
             const sunIcon = document.getElementById('sun-icon');
+            const mobileMoonIcon = document.getElementById('mobile-moon-icon');
+            const mobileSunIcon = document.getElementById('mobile-sun-icon');
             const html = document.documentElement;
             
             // 检查系统主题偏好
@@ -889,17 +901,23 @@
                 html.classList.remove('dark');
                 moonIcon.classList.remove('hidden');
                 sunIcon.classList.add('hidden');
+                mobileMoonIcon.classList.remove('hidden');
+                mobileSunIcon.classList.add('hidden');
             } else {
                 html.classList.add('dark');
                 sunIcon.classList.remove('hidden');
                 moonIcon.classList.add('hidden');
+                mobileMoonIcon.classList.add('hidden');
+                mobileSunIcon.classList.remove('hidden');
             }
             
-            // 主题切换事件
-            themeToggle.addEventListener('click', function() {
+            // 切换主题函数
+            function toggleTheme() {
                 html.classList.toggle('dark');
                 moonIcon.classList.toggle('hidden');
                 sunIcon.classList.toggle('hidden');
+                mobileMoonIcon.classList.toggle('hidden');
+                mobileSunIcon.classList.toggle('hidden');
                 
                 // 保存主题设置到本地存储
                 if (html.classList.contains('dark')) {
@@ -907,7 +925,11 @@
                 } else {
                     localStorage.setItem('theme', 'light');
                 }
-            });
+            }
+            
+            // 主题切换事件
+            themeToggle.addEventListener('click', toggleTheme);
+            mobileThemeToggle.addEventListener('click', toggleTheme);
             
             // 移动端菜单
             const menuToggle = document.getElementById('menu-toggle');
