@@ -2,9 +2,9 @@
 *.mp4 filter=lfs diff=lfs merge=lfs -text
 *.jpg filter=lfs diff=lfs merge=lfs -text
 *.png filter=lfs diff=lfs merge=lfs -text
-
 # 确保文本文件使用LF行尾
 *.html text eol=lf
 *.css text eol=lf
 *.js text eol=lf
 *.md text eol=lf
+compressed_video.mp4 filter=lfs diff=lfs merge=lfs -text
