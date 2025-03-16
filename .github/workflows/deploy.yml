@@ -16,7 +16,10 @@ jobs:
           fetch-depth: 0
       
       - name: Pull LFS objects
-        run: git lfs pull
+        run: |
+          git lfs install
+          git lfs pull
+          ls -la # 列出文件以确认LFS文件已下载
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
