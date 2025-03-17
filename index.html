@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>柯文辉 - 个人简历</title>
+    <!-- 预加载关键图片资源 -->
+    <link rel="preload" href="./未命名的设计.png" as="image">
+    <link rel="preload" href="./image/聘书.jpg" as="image">
     <!-- TailwindCSS 3.0+ -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Font Awesome 图标库 -->
@@ -153,6 +156,8 @@
             opacity: 0.3; /* 浅色模式下的透明度 - 已增加 */
             z-index: -1;
             pointer-events: none;
+            will-change: transform; /* 优化渲染性能 */
+            transform: translateZ(0); /* 启用GPU加速 */
         }
         
         .dark section:not(.min-h-screen)::before {
@@ -955,8 +960,57 @@
 
     <!-- JavaScript -->
     <script>
-        // 页面加载完成后执行
+        // 图片懒加载和渐进式加载优化
         document.addEventListener('DOMContentLoaded', function() {
+            // 图片懒加载优化
+            const lazyImages = document.querySelectorAll('img[loading="lazy"]');
+            
+            // 使用Intersection Observer API优化懒加载
+            if ('IntersectionObserver' in window) {
+                const imageObserver = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const img = entry.target;
+                            // 设置图片源
+                            if (img.dataset.src) {
+                                img.src = img.dataset.src;
+                                img.removeAttribute('data-src');
+                            }
+                            // 添加淡入效果
+                            img.classList.add('opacity-100');
+                            img.classList.remove('opacity-0');
+                            // 停止观察已加载的图片
+                            observer.unobserve(img);
+                        }
+                    });
+                }, {
+                    rootMargin: '100px 0px',
+                    threshold: 0.01
+                });
+                
+                lazyImages.forEach(img => {
+                    // 初始设置为透明
+                    img.classList.add('opacity-0', 'transition-opacity', 'duration-500');
+                    imageObserver.observe(img);
+                });
+            } else {
+                // 对于不支持Intersection Observer的浏览器，使用传统方法
+                lazyImages.forEach(img => {
+                    img.classList.add('opacity-100');
+                });
+            }
+            
+            // 图片加载错误处理
+            document.querySelectorAll('img').forEach(img => {
+                img.addEventListener('error', function() {
+                    // 设置一个默认的占位图
+                    this.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"%3E%3Crect width="100" height="100" fill="%23f1f5f9"%3E%3C/rect%3E%3Ctext x="50" y="50" font-family="Arial" font-size="12" text-anchor="middle" alignment-baseline="middle" fill="%2394a3b8"%3E图片加载失败%3C/text%3E%3C/svg%3E';
+                    this.alt = '图片加载失败';
+                    this.classList.add('border', 'border-slate-300');
+                });
+            });
+        
+            // 原有的DOMContentLoaded事件处理
             // 移除加载动画 - 确保立即执行
             const loader = document.querySelector('.loader');
             if (loader) {
@@ -1376,9 +1430,11 @@
                     const isGitHubPages = window.location.hostname.includes('github.io');
                     console.log('当前环境:', isGitHubPages ? 'GitHub Pages' : '本地开发');
                     
-                    // 在GitHub Pages环境下直接使用本地响应模式
+                    // 在GitHub Pages环境下尝试API调用，如果失败再使用本地响应模式
+                    // 不再直接强制使用本地响应模式
                     if (isGitHubPages) {
-                        throw new Error('FORCED_LOCAL_RESPONSE');
+                        console.log('GitHub Pages环境下尝试API调用');
+                        // 继续执行API调用，不再直接抛出错误
                     }
                     
                     // 在本地环境下尝试API调用
