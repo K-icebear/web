@@ -7,6 +7,8 @@
     <!-- 预加载关键图片资源 -->
     <link rel="preload" href="./未命名的设计.png" as="image">
     <link rel="preload" href="./image/聘书.jpg" as="image">
+    <!-- 预加载视频资源 -->
+    <link rel="preload" href="./compressed_video.mp4" as="video" type="video/mp4">
     <!-- TailwindCSS 3.0+ -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Font Awesome 图标库 -->
@@ -360,7 +362,7 @@
         <div class="absolute inset-0 z-0">
             <!-- 视频背景 -->
             <div class="absolute inset-0 bg-gradient-to-b from-white via-slate-100/90 to-white dark:from-slate-900 dark:via-slate-800/90 dark:to-slate-900 opacity-90"></div>
-            <video class="absolute inset-0 w-full h-full object-cover opacity-50 dark:opacity-60" autoplay loop muted playsinline preload="auto" poster="未命名的设计.png">
+            <video class="absolute inset-0 w-full h-full object-cover opacity-50 dark:opacity-60" autoplay loop muted playsinline preload="auto" poster="./未命名的设计.png">
                 <source src="./compressed_video.mp4" type="video/mp4">
             </video>
             <!-- 装饰性背景元素 -->
