@@ -147,7 +147,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: url('未命名的设计.png');
+            background-image: url('./未命名的设计.png');
             background-size: cover;
             background-position: center;
             opacity: 0.3; /* 浅色模式下的透明度 - 已增加 */
@@ -272,7 +272,7 @@
                     <i class="fas fa-robot text-sm"></i>
                 </div>
                 <div class="bg-white dark:bg-slate-700 p-3 rounded-lg shadow-sm max-w-[85%]">
-                    <p class="text-slate-800 dark:text-slate-200 text-sm">你好！我是AI助手，可以帮您解答各种问题，包括数学计算等。有什么可以帮到您的吗？</p>
+                    <p class="text-slate-800 dark:text-slate-200 text-sm">你好！我是AI助手，可以帮您解答各种问题。有什么可以帮到您的吗？</p>
                 </div>
             </div>
         </div>
@@ -542,7 +542,7 @@
                             <div class="w-full sm:w-4/5 md:w-3/5 lg:w-2/5 xl:w-1/3">
                                 <h4 class="text-md font-semibold text-slate-800 dark:text-slate-200 mb-3 text-center lg:text-left">社团会长聘书</h4>
                                 <div class="certificate-viewer">
-                                    <img src="image/聘书.jpg" alt="社团会长聘书" class="certificate-img" loading="lazy">
+                                    <img src="./image/聘书.jpg" alt="社团会长聘书" class="certificate-img" loading="lazy">
                                 </div>
                                 <p class="text-xs text-slate-500 dark:text-slate-400 mt-2 text-center">国际贸易协会会长聘书</p>
                             </div>
@@ -753,13 +753,13 @@
                             <div class="mt-3 relative project-carousel-container">
                                 <div class="project-carousel-slides">
                                     <div class="project-carousel-slide active">
-                                        <img src="image/fe165e974f60c6c8eb95acd20c20027.png" alt="荣誉证书" class="w-full rounded-lg shadow-md hover:shadow-lg transition-all duration-300" loading="lazy">
+                                        <img src="./image/fe165e974f60c6c8eb95acd20c20027.png" alt="荣誉证书" class="w-full rounded-lg shadow-md hover:shadow-lg transition-all duration-300" loading="lazy">
                                     </div>
                                     <div class="project-carousel-slide">
-                                        <img src="image/0a2866a3009a5dc92101cf9e5c554b6.png" alt="荣誉证书" class="w-full rounded-lg shadow-md hover:shadow-lg transition-all duration-300" loading="lazy">
+                                        <img src="./image/0a2866a3009a5dc92101cf9e5c554b6.png" alt="荣誉证书" class="w-full rounded-lg shadow-md hover:shadow-lg transition-all duration-300" loading="lazy">
                                     </div>
                                     <div class="project-carousel-slide">
-                                        <img src="image/9114aa7a991f34b95957975365b16bc.png" alt="荣誉证书" class="w-full rounded-lg shadow-md hover:shadow-lg transition-all duration-300" loading="lazy">
+                                        <img src="./image/9114aa7a991f34b95957975365b16bc.png" alt="荣誉证书" class="w-full rounded-lg shadow-md hover:shadow-lg transition-all duration-300" loading="lazy">
                                     </div>
                                 </div>
                                 <div class="absolute bottom-2 left-0 right-0 flex justify-center space-x-2">
@@ -791,10 +791,10 @@
                             <div class="mt-3 relative project-carousel-container">
                                 <div class="project-carousel-slides">
                                     <div class="project-carousel-slide active">
-                                        <img src="image/d8d27f220f46b5421c77f73652b0598.png" alt="荣誉证书" class="w-full rounded-lg shadow-md hover:shadow-lg transition-all duration-300" loading="lazy">
+                                        <img src="./image/d8d27f220f46b5421c77f73652b0598.png" alt="荣誉证书" class="w-full rounded-lg shadow-md hover:shadow-lg transition-all duration-300" loading="lazy">
                                     </div>
                                     <div class="project-carousel-slide">
-                                        <img src="image/f2ee650bd7ae548b01a14a7baa46a34.png" alt="荣誉证书" class="w-full rounded-lg shadow-md hover:shadow-lg transition-all duration-300" loading="lazy">
+                                        <img src="./image/f2ee650bd7ae548b01a14a7baa46a34.png" alt="荣誉证书" class="w-full rounded-lg shadow-md hover:shadow-lg transition-all duration-300" loading="lazy">
                                     </div>
                                 </div>
                                 <div class="absolute bottom-2 left-0 right-0 flex justify-center space-x-2">
@@ -1156,8 +1156,8 @@
             // 检查本地存储中的主题设置
             const savedTheme = localStorage.getItem('theme');
             
-            // 根据保存的主题或系统偏好设置初始主题
-            if (savedTheme === 'light' || (!savedTheme && !prefersDarkMode)) {
+            // 根据保存的主题或系统偏好设置初始主题，默认使用暗黑模式
+            if (savedTheme === 'light') {
                 html.classList.remove('dark');
                 moonIcon.classList.remove('hidden');
                 sunIcon.classList.add('hidden');
@@ -1247,7 +1247,7 @@
                 const isGitHubPages = window.location.hostname.includes('github.io');
                 if (isGitHubPages && aiChatMessages.children.length === 0) {
                     // 添加欢迎消息
-                    addAiMessage('您好！我是AI助手。我可以回答各种问题，包括数学计算、常识问答等。如果API连接失败，我会使用本地响应模式继续为您服务。');
+                    addAiMessage('您好！我是AI助手。我可以回答各种问题，包括常识问答等。如果API连接失败，我会使用本地响应模式继续为您服务。');
                 }
             });
             
@@ -1375,9 +1375,13 @@
                     // 检查是否在GitHub Pages环境下
                     const isGitHubPages = window.location.hostname.includes('github.io');
                     console.log('当前环境:', isGitHubPages ? 'GitHub Pages' : '本地开发');
-                    // 不再强制使用本地响应，尝试使用API密钥进行调用
-                    // 如果API调用失败，会在catch块中使用本地响应作为备用
                     
+                    // 在GitHub Pages环境下直接使用本地响应模式
+                    if (isGitHubPages) {
+                        throw new Error('FORCED_LOCAL_RESPONSE');
+                    }
+                    
+                    // 在本地环境下尝试API调用
                     const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
                         method: 'POST',
                         headers: {
@@ -1499,15 +1503,11 @@
                         // 使用增强的本地响应作为备用
                         const localResponses = {
                             '你好': '你好！我是AI助手，很高兴为您服务。有什么我可以帮助您的吗？',
-                            '介绍': '我是一个AI助手，可以回答各种问题，包括数学计算、常识问答等。我会尽力为您提供准确的信息和帮助。',
+                            '介绍': '我是一个AI助手，可以回答各种问题，包括常识问答等。我会尽力为您提供准确的信息和帮助。',
                             '联系': '如果您需要联系网站管理员，请通过网站底部的联系方式进行联系。',
-                            '数学': '我可以帮助您进行各种数学计算，例如加减乘除、代数计算等。请直接输入您的数学问题，我会给您答案。',
-                            '计算': '我可以帮助您进行各种数学计算，例如加减乘除、代数计算等。请直接输入您的数学问题，我会给您答案。',
-                            '77*34': '77×34=2618',
-                            '77×34': '77×34=2618',
-                            '77乘以34': '77×34=2618',
+
                             
-                            'default': '感谢您的消息。我是AI助手，很高兴为您服务。您可以询问我各种问题，包括数学计算、常识问答等，我会尽力为您提供帮助。'
+                            'default': '感谢您的消息。我是AI助手，很高兴为您服务。您可以询问我各种问题，包括常识问答等，我会尽力为您提供帮助。'
                         };
                         
                         // 尝试匹配本地响应 - 改进的匹配算法
