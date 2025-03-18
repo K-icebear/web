@@ -147,7 +147,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: url('/未命名的设计.png');
+            background-image: url('./未命名的设计.png');
             background-size: cover;
             background-position: center;
             opacity: 0.3; /* 浅色模式下的透明度 - 已增加 */
@@ -375,8 +375,8 @@
         <div class="absolute inset-0 z-0">
             <!-- 视频背景 -->
             <div class="absolute inset-0 bg-gradient-to-b from-white via-slate-100/90 to-white dark:from-slate-900 dark:via-slate-800/90 dark:to-slate-900 opacity-90"></div>
-            <video class="absolute inset-0 w-full h-full object-cover opacity-50 dark:opacity-60" autoplay loop muted playsinline preload="auto" poster="/未命名的设计.png">
-                <source src="/compressed_video.mp4" type="video/mp4">
+            <video class="absolute inset-0 w-full h-full object-cover opacity-50 dark:opacity-60" autoplay loop muted playsinline preload="auto" poster="./未命名的设计.png">
+                <source src="./compressed_video.mp4" type="video/mp4">
             </video>
             <!-- 装饰性背景元素 -->
             <div class="bg-pattern bg-circle w-96 h-96 -top-20 -left-20 bg-primary-400/20 dark:bg-primary-600/10"></div>
@@ -1426,7 +1426,7 @@
                     console.log('当前环境:', isGitHubPages ? 'GitHub Pages' : '本地开发');
                     
                     // 在GitHub Pages环境下直接使用本地响应模式
-                    if (isGitHubPages) {
+                    if (isGitHubPages || true) { // 强制使用本地响应模式，确保始终能回复
                         throw new Error('FORCED_LOCAL_RESPONSE');
                     }
                     
@@ -1517,7 +1517,7 @@
                     aiChatLoading.classList.add('hidden');
                     
                     // 检查是否可以重试
-                    if (retryCount < MAX_RETRIES && error.message !== 'FORCED_LOCAL_RESPONSE') {
+                    if (retryCount < MAX_RETRIES && error.message !== 'FORCED_LOCAL_RESPONSE' && !window.location.hostname.includes('github.io')) {
                         // 显示重试消息
                         addAiMessage(`连接服务器时遇到问题，正在尝试重新连接...(${retryCount + 1}/${MAX_RETRIES + 1})`);
                         
@@ -1554,32 +1554,60 @@
                             '你好': '你好！我是AI助手，很高兴为您服务。有什么我可以帮助您的吗？',
                             '介绍': '我是一个AI助手，可以回答各种问题，包括常识问答等。我会尽力为您提供准确的信息和帮助。',
                             '联系': '如果您需要联系网站管理员，请通过网站底部的联系方式进行联系。',
-
+                            '联系方式': '个人信息\n电话：13696816959\n微信号：kk13706959709\n邮箱：i2340835@gmail.com',
+                            '简历': '这是一个个人简历网站，展示了个人的技能、经验和项目。您可以浏览各个部分了解更多信息。',
+                            '项目': '本网站展示了多个项目经验，包括技术栈和项目描述。您可以在网站的项目部分查看详细信息。',
+                            '技能': '本网站展示了多种技术技能，包括前端开发、后端开发等相关技能。',
+                            '经验': '本网站包含了工作经验和项目经验的详细描述，您可以在相应部分查看。',
+                            '教育': '本网站包含了教育背景信息，您可以在简历部分查看相关学历信息。',
+                            '下载': '您可以通过网站提供的下载按钮下载完整简历。',
+                            '聘书': '网站展示了聘书相关信息，您可以在图片部分查看。',
                             
-                            'default': '感谢您的消息。我是AI助手，很高兴为您服务。您可以询问我各种问题，包括常识问答等，我会尽力为您提供帮助。'
+                            'default': '感谢您的消息。我是AI助手，很高兴为您服务。这是一个个人简历网站，展示了个人的技能、经验和项目。如果您有关于网站内容的问题，我会尽力为您提供帮助。'
                         };
                         
-                        // 尝试匹配本地响应 - 改进的匹配算法
+                        // 尝试匹配本地响应 - 增强的匹配算法
                         let localResponse = localResponses.default;
                         let bestMatchKey = '';
+                        let bestMatchScore = 0;
                         
                         // 先尝试完全匹配
                         for (const key of Object.keys(localResponses)) {
                             if (message.toLowerCase() === key.toLowerCase() && key !== 'default') {
                                 localResponse = localResponses[key];
                                 bestMatchKey = key;
+                                bestMatchScore = 1;
                                 break;
                             }
                         }
                         
-                        // 如果没有完全匹配，尝试部分匹配
-                        if (!bestMatchKey) {
+                        // 如果没有完全匹配，尝试部分匹配和关键词匹配
+                        if (bestMatchScore < 1) {
                             for (const key of Object.keys(localResponses)) {
-                                if (message.toLowerCase().includes(key.toLowerCase()) && key !== 'default') {
-                                    // 如果找到了更长的匹配关键词，使用它
-                                    if (key.length > bestMatchKey.length) {
+                                if (key !== 'default') {
+                                    // 计算匹配分数
+                                    let score = 0;
+                                    
+                                    // 检查消息是否包含关键词
+                                    if (message.toLowerCase().includes(key.toLowerCase())) {
+                                        score = key.length / message.length * 0.8; // 根据关键词长度占比计算分数
+                                    }
+                                    
+                                    // 检查关键词相似度
+                                    const messageParts = message.toLowerCase().split(/\s+/);
+                                    const keyParts = key.toLowerCase().split(/\s+/);
+                                    
+                                    for (const part of messageParts) {
+                                        if (keyParts.includes(part) || part.includes(key.toLowerCase())) {
+                                            score += 0.2; // 每匹配一个词增加分数
+                                        }
+                                    }
+                                    
+                                    // 更新最佳匹配
+                                    if (score > bestMatchScore) {
                                         localResponse = localResponses[key];
                                         bestMatchKey = key;
+                                        bestMatchScore = score;
                                     }
                                 }
                             }
