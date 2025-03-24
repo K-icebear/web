@@ -1,0 +1,171 @@
+/* iOS风格动画效果 */
+
+/* 平滑过渡基础设置 */
+* {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    backface-visibility: hidden;
+}
+
+/* 改进的淡入动画 */
+@keyframes iosFadeIn {
+    0% { opacity: 0; transform: scale(0.96); }
+    100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes iosFadeUp {
+    0% { opacity: 0; transform: translateY(15px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes iosSlideIn {
+    0% { transform: translateX(20px); opacity: 0; }
+    100% { transform: translateX(0); opacity: 1; }
+}
+
+/* 弹性动画效果 */
+@keyframes iosBounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-10px); }
+    60% { transform: translateY(-5px); }
+}
+
+/* 脉冲动画改进 */
+@keyframes iosPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+/* 平滑滚动效果 */
+html {
+    scroll-behavior: smooth;
+}
+
+/* iOS风格的动画类 */
+.ios-fade-in {
+    animation: iosFadeIn 0.4s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
+.ios-fade-up {
+    animation: iosFadeUp 0.5s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
+.ios-slide-in {
+    animation: iosSlideIn 0.4s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
+.ios-bounce {
+    animation: iosBounce 1s ease;
+}
+
+.ios-pulse {
+    animation: iosPulse 1.5s ease-in-out infinite;
+}
+
+/* 改进的悬停效果 */
+.ios-hover {
+    transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.ios-hover:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* 按钮点击效果 */
+.ios-button {
+    transition: transform 0.2s cubic-bezier(0.23, 1, 0.32, 1), 
+                box-shadow 0.2s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.ios-button:active {
+    transform: scale(0.97);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* 导航栏滚动效果 */
+.ios-nav-scroll {
+    transition: background-color 0.3s cubic-bezier(0.23, 1, 0.32, 1),
+                backdrop-filter 0.3s cubic-bezier(0.23, 1, 0.32, 1),
+                box-shadow 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* 卡片悬停效果 */
+.ios-card {
+    transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1),
+                box-shadow 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.ios-card:hover {
+    transform: translateY(-6px) scale(1.01);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* 滚动指示器动画 */
+.ios-scroll-indicator {
+    animation: iosBounce 2s infinite;
+}
+
+/* 页面过渡效果 */
+.ios-page-transition {
+    transition: opacity 0.4s cubic-bezier(0.23, 1, 0.32, 1),
+                transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* 加载动画改进 */
+.ios-loader {
+    transition: opacity 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* 改进的滚动条 */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(13, 148, 136, 0.5);
+    border-radius: 10px;
+    transition: background 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(13, 148, 136, 0.8);
+}
+
+/* 视差滚动效果 */
+.ios-parallax {
+    transition: transform 0.1s cubic-bezier(0.23, 1, 0.32, 1);
+    will-change: transform;
+}
+
+/* 微交互动画 */
+.ios-micro-interaction {
+    transition: all 0.2s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* 图片加载淡入效果 */
+.ios-image-fade {
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.ios-image-fade.loaded {
+    opacity: 1;
+}
+
+/* 改进的移动菜单动画 */
+.ios-mobile-menu {
+    transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1),
+                opacity 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* 主题切换动画 */
+.ios-theme-transition {
+    transition: background-color 0.5s cubic-bezier(0.23, 1, 0.32, 1),
+                color 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+}

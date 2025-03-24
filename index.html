@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN" class="dark">
+<html lang="zh-CN" class="dark ios-theme-transition">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -13,6 +13,12 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- iOS风格动画CSS -->
+    <link rel="stylesheet" href="./ios-animations.css">
+    <!-- 轮播动画CSS -->
+    <link rel="stylesheet" href="./carousel-animations.css">
+    <!-- 轮播触摸交互JS -->
+    <script src="./carousel-touch.js" defer></script>
     <script>
         // 配置 Tailwind
         tailwind.config = {
@@ -609,7 +615,7 @@
                 
                 <!-- 轮播组件 -->
                 <div class="relative overflow-hidden rounded-xl shadow-lg border border-slate-200/50 dark:border-slate-700/50">
-                    <div id="internship-carousel" class="carousel-container">
+                    <div id="internship-carousel" class="carousel-container ios-carousel-container ios-carousel-touch">
                         <div class="carousel-slides">
                             <!-- 厦门安踏电子商务有限公司 -->
                             <div class="carousel-slide bg-white dark:bg-slate-800 p-8">
@@ -684,9 +690,9 @@
                         
                         <!-- 轮播控制按钮 -->
                         <div class="absolute bottom-4 left-0 right-0 flex justify-center space-x-2">
-                            <button class="carousel-dot w-3 h-3 rounded-full bg-slate-300 dark:bg-slate-600 hover:bg-primary-500 dark:hover:bg-primary-500 transition-colors duration-300" data-index="0"></button>
-                            <button class="carousel-dot w-3 h-3 rounded-full bg-slate-300 dark:bg-slate-600 hover:bg-primary-500 dark:hover:bg-primary-500 transition-colors duration-300" data-index="1"></button>
-                            <button class="carousel-dot w-3 h-3 rounded-full bg-slate-300 dark:bg-slate-600 hover:bg-primary-500 dark:hover:bg-primary-500 transition-colors duration-300" data-index="2"></button>
+                            <button class="carousel-dot ios-carousel-dot w-3 h-3 rounded-full bg-slate-300 dark:bg-slate-600 hover:bg-primary-500 dark:hover:bg-primary-500 transition-colors duration-300" data-index="0"></button>
+                            <button class="carousel-dot ios-carousel-dot w-3 h-3 rounded-full bg-slate-300 dark:bg-slate-600 hover:bg-primary-500 dark:hover:bg-primary-500 transition-colors duration-300" data-index="1"></button>
+                            <button class="carousel-dot ios-carousel-dot w-3 h-3 rounded-full bg-slate-300 dark:bg-slate-600 hover:bg-primary-500 dark:hover:bg-primary-500 transition-colors duration-300" data-index="2"></button>
                         </div>
                         
                         <!-- 底部装饰波浪 -->
@@ -709,21 +715,25 @@
                     
                     .carousel-slides, .project-carousel-slides {
                         display: flex;
-                        transition: transform 0.5s ease;
+                        transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
                     }
                     
                     .carousel-slide, .project-carousel-slide {
                         min-width: 100%;
                         opacity: 0;
-                        transition: opacity 0.5s ease;
+                        transform: scale(0.98);
+                        transition: opacity 0.5s cubic-bezier(0.23, 1, 0.32, 1),
+                                    transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
                         position: absolute;
                         top: 0;
                         left: 0;
                         right: 0;
+                        will-change: opacity, transform;
                     }
                     
                     .carousel-slide.active, .project-carousel-slide.active {
                         opacity: 1;
+                        transform: scale(1);
                         position: relative;
                     }
                     
@@ -770,7 +780,7 @@
                         </p>
                         <div class="mt-4">
                             <h4 class="text-md font-semibold text-slate-800 dark:text-slate-200 mb-2">项目成果：</h4>
-                            <div class="mt-3 relative project-carousel-container">
+                            <div class="mt-3 relative project-carousel-container ios-carousel-container ios-carousel-touch">
                                 <div class="project-carousel-slides">
                                     <div class="project-carousel-slide active">
                                         <img src="./image/fe165e974f60c6c8eb95acd20c20027.png" alt="荣誉证书" class="w-full rounded-lg shadow-md hover:shadow-lg transition-all duration-300" loading="lazy" onerror="handleImageError(this)">
@@ -808,7 +818,7 @@
                         </p>
                         <div class="mt-4">
                             <h4 class="text-md font-semibold text-slate-800 dark:text-slate-200 mb-2">项目成果：</h4>
-                            <div class="mt-3 relative project-carousel-container">
+                            <div class="mt-3 relative project-carousel-container ios-carousel-container ios-carousel-touch">
                                 <div class="project-carousel-slides">
                                     <div class="project-carousel-slide active">
                                         <img src="./image/d8d27f220f46b5421c77f73652b0598.png" alt="荣誉证书" class="w-full rounded-lg shadow-md hover:shadow-lg transition-all duration-300" loading="lazy" onerror="handleImageError(this)">
@@ -1065,9 +1075,11 @@
                     currentSlide = 0;
                 }
                 
-                // 添加新的活动状态
-                carouselSlides[currentSlide].classList.add('active');
-                carouselDots[currentSlide].classList.add('active');
+                // 添加新的活动状态，使用setTimeout确保CSS过渡效果顺畅
+                setTimeout(() => {
+                    carouselSlides[currentSlide].classList.add('active');
+                    carouselDots[currentSlide].classList.add('active');
+                }, 50);
             }
             
             // 下一张幻灯片
@@ -1154,9 +1166,11 @@
                         currentSlide = 0;
                     }
                     
-                    // 添加新的活动状态
-                    slides[currentSlide].classList.add('active');
-                    dots[currentSlide].classList.add('active');
+                    // 添加新的活动状态，使用setTimeout确保CSS过渡效果顺畅
+                    setTimeout(() => {
+                        slides[currentSlide].classList.add('active');
+                        dots[currentSlide].classList.add('active');
+                    }, 50);
                 }
                 
                 // 下一张幻灯片
@@ -1625,5 +1639,8 @@
         });
     
     </script>
+    
+    <!-- iOS风格动画JS -->
+    <script src="./ios-animations.js"></script>
 </body>
 </html>

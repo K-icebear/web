@@ -1,0 +1,91 @@
+/* iOS风格轮播动画效果 */
+
+/* 轮播滑动动画 */
+@keyframes iosCarouselSlideIn {
+    0% { transform: translateX(30px) scale(0.95); opacity: 0; }
+    100% { transform: translateX(0) scale(1); opacity: 1; }
+}
+
+@keyframes iosCarouselSlideOut {
+    0% { transform: translateX(0) scale(1); opacity: 1; }
+    100% { transform: translateX(-30px) scale(0.95); opacity: 0; }
+}
+
+/* 轮播淡入淡出动画 */
+@keyframes iosCarouselFadeIn {
+    0% { opacity: 0; transform: scale(0.96); }
+    100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes iosCarouselFadeOut {
+    0% { opacity: 1; transform: scale(1); }
+    100% { opacity: 0; transform: scale(0.96); }
+}
+
+/* 轮播组件iOS风格增强 */
+.ios-carousel-container {
+    overflow: hidden;
+    position: relative;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    transition: box-shadow 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.ios-carousel-container:hover {
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+}
+
+.ios-carousel-slide {
+    backface-visibility: hidden;
+    -webkit-font-smoothing: antialiased;
+    will-change: opacity, transform;
+}
+
+/* 轮播指示器动画 */
+.ios-carousel-dot {
+    transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+    transform: scale(1);
+}
+
+.ios-carousel-dot.active {
+    transform: scale(1.2);
+}
+
+.ios-carousel-dot:hover {
+    transform: scale(1.1);
+}
+
+/* 轮播触摸交互效果 */
+.ios-carousel-touch {
+    touch-action: pan-y;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    cursor: grab;
+}
+
+/* 轮播滑动指示器 */
+.ios-carousel-indicator {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 4px;
+    width: 0;
+    background-color: rgba(20, 184, 166, 0.7);
+    border-radius: 2px;
+    transition: width 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+    z-index: 10;
+}
+
+/* 轮播幻灯片过渡动画 */
+.carousel-slide, .project-carousel-slide {
+    transition: opacity 0.5s cubic-bezier(0.23, 1, 0.32, 1),
+                transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.carousel-slide.active, .project-carousel-slide.active {
+    animation: iosCarouselFadeIn 0.5s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
+.carousel-slide.prev-active, .project-carousel-slide.prev-active {
+    animation: iosCarouselFadeOut 0.5s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
